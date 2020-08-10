@@ -9,6 +9,10 @@ interface CartState {
     shoppingCart: Product[];
 }
 
+interface SearchBarProps {
+    setToSearch: function;
+}
+
 interface ActionAdd {
     type: "ADD_TO_CART";
     payload: Product;

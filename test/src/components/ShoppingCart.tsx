@@ -32,8 +32,6 @@ const ShoppingCart = () => {
     const dispatch = useDispatch();
     const shoppingCart = useSelector((state: CartState) => state.shoppingCart);
 
-    console.log("shop-shop", shoppingCart);
-
     const removeFromCart = (product: Product) => {
         const newShoppingCart = shoppingCart.filter(
             (item: Product) => item.id !== product.id
@@ -62,7 +60,7 @@ const ShoppingCart = () => {
                                 src={product?.thumbnailUrl}
                             />
                         </ListItemAvatar>
-                        <ListItemText primary={product?.title} />
+                        <ListItemText secondary={product?.title} />
                         <ListItemSecondaryAction>
                             <IconButton
                                 edge="end"

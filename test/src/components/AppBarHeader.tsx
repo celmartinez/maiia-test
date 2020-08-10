@@ -11,19 +11,29 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import ShoppingCart from "./ShoppingCart";
+import logo from "../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
+    appBar: {
+        backgroundColor: "grey",
+    },
+    toolBar: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
     title: {
-        flexGrow: 1,
+        fontWeight: "bold",
+        paddingLeft: "15px",
+        paddingTop: "5px",
     },
     drawerHeader: {
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(0, 1),
-
         justifyContent: "space-between",
     },
     cart: {
@@ -49,13 +59,17 @@ const AppBarHeader = () => {
         setOpen(open);
     };
 
-    console.log("widthhhh", window.innerWidth);
     return (
         <div className={classes.root}>
-            <AppBar position="fixed">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        My e-commerce
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar className={classes.toolBar}>
+                    <img
+                        style={{ width: "45px" }}
+                        alt="logo my e-shop"
+                        src={logo}
+                    />
+                    <Typography variant="h5" className={classes.title}>
+                        MY E-SHOP
                     </Typography>
                     <IconButton
                         color="inherit"
@@ -69,28 +83,28 @@ const AppBarHeader = () => {
                             <ShoppingCartOutlinedIcon />
                         </Badge>
                     </IconButton>
-                    <Drawer
-                        anchor="right"
-                        variant="persistent"
-                        open={open}
-                        onClose={toggleDrawer(false)}
-                    >
-                        <div className={classes.drawerHeader}>
-                            <IconButton onClick={toggleDrawer(false)}>
-                                <ChevronRightIcon />
-                            </IconButton>
-                            <Badge
-                                className={classes.cart}
-                                badgeContent={shoppingCart.length}
-                                color="secondary"
-                            >
-                                <ShoppingCartOutlinedIcon />
-                            </Badge>
-                        </div>
-
-                        <ShoppingCart />
-                    </Drawer>
                 </Toolbar>
+                <Drawer
+                    anchor="right"
+                    variant="persistent"
+                    open={open}
+                    onClose={toggleDrawer(false)}
+                >
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={toggleDrawer(false)}>
+                            <ChevronRightIcon />
+                        </IconButton>
+                        <Badge
+                            className={classes.cart}
+                            badgeContent={shoppingCart.length}
+                            color="secondary"
+                        >
+                            <ShoppingCartOutlinedIcon />
+                        </Badge>
+                    </div>
+
+                    <ShoppingCart />
+                </Drawer>
             </AppBar>
         </div>
     );

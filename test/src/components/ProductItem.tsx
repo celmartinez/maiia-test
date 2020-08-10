@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { addItem } from "../redux/actions";
-
 import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -22,6 +21,7 @@ const useStyles = makeStyles(() => ({
     card: {
         maxWidth: 300,
         minWidth: 120,
+        height: 205,
         margin: "auto",
         transition: "0.3s",
         boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
@@ -30,13 +30,15 @@ const useStyles = makeStyles(() => ({
         },
     },
     media: {
-        paddingTop: "56.25%",
+        paddingTop: "100px",
     },
     content: {
         textAlign: "left",
+        overflow: "hidden",
     },
     shopButton: {
         float: "right",
+        color: "white",
     },
 }));
 
@@ -66,22 +68,23 @@ const ProductItem = (props: Product) => {
     return (
         <Grid item xs={6} sm={3}>
             <Card className={classes.card}>
-                <CardMedia className={classes.media} image={url}>
-                    <IconButton
-                        className={classes.shopButton}
-                        onClick={() =>
-                            addToCart({ id, title, url, thumbnailUrl })
-                        }
-                        disabled={alreadyAdded !== -1}
-                    >
-                        <Tooltip title="Add to cart" arrow>
-                            <AddShoppingCartRoundedIcon />
-                        </Tooltip>
-                    </IconButton>
-                </CardMedia>
+                <IconButton
+                    className={classes.shopButton}
+                    onClick={() => addToCart({ id, title, url, thumbnailUrl })}
+                    disabled={alreadyAdded !== -1}
+                >
+                    <Tooltip title="Add to cart" arrow>
+                        <AddShoppingCartRoundedIcon />
+                    </Tooltip>
+                </IconButton>
+                <CardMedia className={classes.media} image={url} />
 
                 <CardContent className={classes.content}>
-                    <Typography variant={"subtitle2"} noWrap={true}>
+                    <Typography
+                        variant={"caption"}
+                        noWrap={false}
+                        paragraph={true}
+                    >
                         {title}
                     </Typography>
                 </CardContent>
