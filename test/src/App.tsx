@@ -1,15 +1,15 @@
 import React from "react";
-import AppBar from "./components/AppBar";
+import AppBarHeader from "./components/AppBarHeader";
 import Products from "./components/Products";
-import ShoppingCart from "./components/ShoppingCart";
+import Box from "@material-ui/core/Box";
 
 function App() {
     return (
-        <div>
-            <AppBar />
-            <ShoppingCart />
+        <Box>
+            <AppBarHeader />
+
             <Products />
-        </div>
+        </Box>
     );
 }
 

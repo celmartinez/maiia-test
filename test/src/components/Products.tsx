@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "@material-ui/lab/Pagination";
 
 function Products() {
     const [page, setPage] = useState(1);
@@ -29,12 +30,8 @@ function Products() {
         fetchProducts();
     }, [page]);
 
-    const changePage = (newPage: number) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setPage(newPage);
-        } else {
-            alert("impossible"); // TODO : change that with a snackbar
-        }
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(Number(value));
     };
 
     const addToCart = (product: Product) => {
@@ -60,13 +57,18 @@ function Products() {
                     );
                 })}
             </ul>
-            PAGINATION
+            <Pagination
+                count={totalPages}
+                page={page}
+                onChange={handleChange}
+            />
+            {/*   PAGINATION
             <br />
             <button onClick={() => changePage(page - 1)}>-</button>
             {page}
             <button onClick={() => changePage(page + 1)}>+</button>
             <br />
-            total pages {totalPages}
+            total pages {totalPages} */}
         </div>
     );
 }
