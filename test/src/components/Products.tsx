@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import ProductItem from "./ProductItem";
 
@@ -15,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Products() {
+const Products = () => {
     const classes = useStyles();
+    const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [products, setProducts] = useState([]);
@@ -24,7 +26,7 @@ function Products() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                // TODO : add the loader
+                setLoading(true);
                 const response = await fetch(
                     `https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=15`
                 );
@@ -34,6 +36,7 @@ function Products() {
                 setTotalPages(Math.ceil(totalProducts / 15));
                 const data = await response.json();
                 setProducts(data);
+                setLoading(false);
             } catch (err) {
                 console.error(err);
             }
@@ -47,21 +50,31 @@ function Products() {
 
     return (
         <Box className={classes.root} m="auto">
-            <Grid container spacing={3}>
-                {products?.map((product: Product) => {
-                    return <ProductItem key={product.id} {...product} />;
-                })}
-            </Grid>
-            <Grid container justify="center">
-                <Pagination
-                    className={classes.pagination}
-                    count={totalPages}
-                    page={page}
-                    onChange={handleChange}
-                />
-            </Grid>
+            {loading ? (
+                <Grid container justify="center">
+                    <CircularProgress />
+                </Grid>
+            ) : (
+                <div>
+                    <Grid container spacing={3}>
+                        {products?.map((product: Product) => {
+                            return (
+                                <ProductItem key={product.id} {...product} />
+                            );
+                        })}
+                    </Grid>
+                    <Grid container justify="center">
+                        <Pagination
+                            className={classes.pagination}
+                            count={totalPages}
+                            page={page}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                </div>
+            )}
         </Box>
     );
-}
+};
 
 export default Products;

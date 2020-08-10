@@ -19,21 +19,11 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
-    list: {
-        width: 250,
-    },
-    fullList: {
-        width: "auto",
-    },
-    drawer: {
-        width: "100px",
-    },
     drawerHeader: {
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
+
         justifyContent: "space-between",
     },
     cart: {
@@ -41,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function AppBarHeader() {
+const AppBarHeader = () => {
     const classes = useStyles();
     const shoppingCart = useSelector((state: CartState) => state.shoppingCart);
     const [open, setOpen] = useState(false);
@@ -56,15 +46,10 @@ function AppBarHeader() {
         ) {
             return;
         }
-        if (shoppingCart.length === 0 && open === true) {
-            console.log("ajouter un element");
-            // TODO : snackbar "vous n'avez rien dans votre panier"
-            return;
-        }
-
         setOpen(open);
     };
-    console.log("widthhhh");
+
+    console.log("widthhhh", window.innerWidth);
     return (
         <div className={classes.root}>
             <AppBar position="fixed">
@@ -72,7 +57,11 @@ function AppBarHeader() {
                     <Typography variant="h6" className={classes.title}>
                         My e-commerce
                     </Typography>
-                    <IconButton color="inherit" onClick={toggleDrawer(true)}>
+                    <IconButton
+                        color="inherit"
+                        onClick={toggleDrawer(true)}
+                        disabled={shoppingCart.length === 0}
+                    >
                         <Badge
                             badgeContent={shoppingCart.length}
                             color="secondary"
@@ -105,6 +94,6 @@ function AppBarHeader() {
             </AppBar>
         </div>
     );
-}
+};
 
 export default AppBarHeader;
