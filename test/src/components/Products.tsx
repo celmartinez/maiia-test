@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+
+import ProductItem from "./ProductItem";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: "80px",
+    },
+    pagination: {
+        marginTop: "25px",
+    },
+}));
 
 function Products() {
+    const classes = useStyles();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [products, setProducts] = useState([]);
-    const dispatch = useDispatch();
-
-    const shoppingCart = useSelector((state: CartState) => state.shoppingCart);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -34,42 +45,22 @@ function Products() {
         setPage(Number(value));
     };
 
-    const addToCart = (product: Product) => {
-        dispatch({ type: "ADD_TO_CART", payload: product });
-    };
-
     return (
-        <div>
-            <ul>
+        <Box className={classes.root} m="auto">
+            <Grid container spacing={3}>
                 {products?.map((product: Product) => {
-                    const alreadyAdded = shoppingCart.findIndex(
-                        (itemCart: Product) => itemCart.id === product.id
-                    );
-                    return (
-                        <li key={product.id}>
-                            {alreadyAdded === -1 && (
-                                <button onClick={() => addToCart(product)}>
-                                    +
-                                </button>
-                            )}
-                            {product?.id} {product?.title}
-                        </li>
-                    );
+                    return <ProductItem key={product.id} {...product} />;
                 })}
-            </ul>
-            <Pagination
-                count={totalPages}
-                page={page}
-                onChange={handleChange}
-            />
-            {/*   PAGINATION
-            <br />
-            <button onClick={() => changePage(page - 1)}>-</button>
-            {page}
-            <button onClick={() => changePage(page + 1)}>+</button>
-            <br />
-            total pages {totalPages} */}
-        </div>
+            </Grid>
+            <Grid container justify="center">
+                <Pagination
+                    className={classes.pagination}
+                    count={totalPages}
+                    page={page}
+                    onChange={handleChange}
+                />
+            </Grid>
+        </Box>
     );
 }
 

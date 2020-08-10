@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -26,12 +25,19 @@ const useStyles = makeStyles((theme) => ({
     fullList: {
         width: "auto",
     },
+    drawer: {
+        width: "100px",
+    },
     drawerHeader: {
         display: "flex",
         alignItems: "center",
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
+        justifyContent: "space-between",
+    },
+    cart: {
+        marginRight: "15px",
     },
 }));
 
@@ -50,7 +56,6 @@ function AppBarHeader() {
         ) {
             return;
         }
-        console.log("length");
         if (shoppingCart.length === 0 && open === true) {
             console.log("ajouter un element");
             // TODO : snackbar "vous n'avez rien dans votre panier"
@@ -59,10 +64,10 @@ function AppBarHeader() {
 
         setOpen(open);
     };
-
+    console.log("widthhhh");
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         My e-commerce
@@ -85,6 +90,13 @@ function AppBarHeader() {
                             <IconButton onClick={toggleDrawer(false)}>
                                 <ChevronRightIcon />
                             </IconButton>
+                            <Badge
+                                className={classes.cart}
+                                badgeContent={shoppingCart.length}
+                                color="secondary"
+                            >
+                                <ShoppingCartOutlinedIcon />
+                            </Badge>
                         </div>
 
                         <ShoppingCart />

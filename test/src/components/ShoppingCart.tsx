@@ -1,5 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -10,7 +12,16 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Divider from "@material-ui/core/Divider";
 
+const useStyles = makeStyles((theme) => ({
+    shoppingList: {
+        maxWidth: window.innerWidth,
+        width: "350px",
+    },
+}));
+
 function ShoppingCart() {
+    const classes = useStyles();
+
     const dispatch = useDispatch();
     const shoppingCart = useSelector((state: CartState) => state.shoppingCart);
 
@@ -24,14 +35,14 @@ function ShoppingCart() {
     };
 
     return (
-        <List /* dense={true} */>
+        <List className={classes.shoppingList}>
             {shoppingCart?.map((product) => (
                 <div key={product?.id}>
                     <Divider />
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar
-                                alt="Remy Sharp"
+                                alt="avatar product"
                                 src={product?.thumbnailUrl}
                             />
                         </ListItemAvatar>
