@@ -13,6 +13,12 @@ export const shoppingCartReducer = (
                 shoppingCart: [...state.shoppingCart, action.payload],
             };
         }
+        case "REMOVE_FROM_CART": {
+            return {
+                ...state,
+                shoppingCart: action.payload,
+            };
+        }
         default:
             return state;
     }

@@ -9,4 +9,14 @@ interface CartState {
     shoppingCart: Product[];
 }
 
-type Action = { type: "ADD_TO_CART"; payload: Product };
+interface ActionAdd {
+    type: "ADD_TO_CART";
+    payload: Product;
+}
+
+interface ActionRemove {
+    type: "REMOVE_FROM_CART";
+    payload: Product[];
+}
+
+type Action = ActionAdd | ActionRemove;

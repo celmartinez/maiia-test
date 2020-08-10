@@ -19,9 +19,9 @@ function Products() {
                 const totalProducts = Number(
                     response.headers.get("x-total-count")
                 );
-                await setTotalPages(Math.ceil(totalProducts / 15));
+                setTotalPages(Math.ceil(totalProducts / 15));
                 const data = await response.json();
-                await setProducts(data);
+                setProducts(data);
             } catch (err) {
                 console.error(err);
             }
