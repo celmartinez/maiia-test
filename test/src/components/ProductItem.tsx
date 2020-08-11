@@ -21,16 +21,15 @@ const useStyles = makeStyles(() => ({
     card: {
         maxWidth: 300,
         minWidth: 120,
-        height: 205,
         margin: "auto",
         transition: "0.3s",
         boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
         "&:hover": {
-            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+            boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.4)",
         },
     },
     media: {
-        paddingTop: "100px",
+        paddingTop: "50%",
     },
     content: {
         textAlign: "left",
@@ -61,7 +60,6 @@ const ProductItem = (props: Product) => {
         if (reason === "clickaway") {
             return;
         }
-
         setOpen(false);
     };
 
@@ -80,13 +78,7 @@ const ProductItem = (props: Product) => {
                 <CardMedia className={classes.media} image={url} />
 
                 <CardContent className={classes.content}>
-                    <Typography
-                        variant={"caption"}
-                        noWrap={false}
-                        paragraph={true}
-                    >
-                        {title}
-                    </Typography>
+                    <Typography variant={"caption"}>{title}</Typography>
                 </CardContent>
             </Card>
             <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>

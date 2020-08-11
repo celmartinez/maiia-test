@@ -13,7 +13,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ShoppingCart from "./ShoppingCart";
 import logo from "../assets/logo.png";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
     },
@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     drawerHeader: {
         display: "flex",
         alignItems: "center",
-        padding: theme.spacing(0, 1),
         justifyContent: "space-between",
     },
     cart: {
@@ -63,11 +62,14 @@ const AppBarHeader = () => {
         <div className={classes.root}>
             <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar className={classes.toolBar}>
-                    <img
-                        style={{ width: "45px" }}
-                        alt="logo my e-shop"
-                        src={logo}
-                    />
+                    <IconButton onClick={() => window.location.reload(true)}>
+                        <img
+                            style={{ width: "45px" }}
+                            alt="logo my e-shop"
+                            src={logo}
+                        />
+                    </IconButton>
+
                     <Typography variant="h5" className={classes.title}>
                         MY E-SHOP
                     </Typography>
@@ -102,7 +104,6 @@ const AppBarHeader = () => {
                             <ShoppingCartOutlinedIcon />
                         </Badge>
                     </div>
-
                     <ShoppingCart />
                 </Drawer>
             </AppBar>
